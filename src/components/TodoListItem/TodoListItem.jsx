@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 
 export default class TodoListItem extends Component {
+  onLabelClick = () => {
+    console.log(`Done: ${this.props.label}`);
+  };
+
   render() {
     const { label, important = false } = this.props;
     return (
       <span className="px-3 flex justify-between content-center border border-cyan-600 my-2 rounded w-full block py-2 px-1">
-        <span className={important ? "text-cyan-400" : "text-slate-200"}>
+        <span
+          className={important ? "text-cyan-400" : "text-slate-200"}
+          onClick={this.onLabelClick}
+        >
           {label}
         </span>
         <div>
