@@ -1,5 +1,6 @@
 import React from "react";
 import AppHeader from "./components/AppHeader";
+import ItemStatusFilter from "./components/ItemStatusFilter";
 import SearchPanel from "./components/SearchPanel";
 import TodoList from "./components/TodoList";
 
@@ -11,9 +12,12 @@ const App = () => {
   ];
 
   return (
-    <div>
+    <div className="w-1/2 m-auto mt-5 bg-slate-700 p-3 rounded font-sans text-slate-200">
       <AppHeader />
-      <SearchPanel />
+      <div className="flex justify-between">
+        <SearchPanel />
+        <ItemStatusFilter />
+      </div>
       <TodoList todos={todoData} />
     </div>
   );
