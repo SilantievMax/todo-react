@@ -1,16 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
 
-const ItemAddForm = ({ onItemAdded }) => {
-  return (
-    <div>
-      <button
-        className="bg-slate-800 px-2 border border-slate-800 py-1 rounded hover:bg-slate-700 "
-        onClick={() => onItemAdded('hello world')}
-      >
-        Add Item
-      </button>
-    </div>
-  );
-};
+class ItemAddForm extends Component {
+  state = {
+    label: "",
+  };
+
+  onLabelChange = (e) => {
+    this.setState({
+      label: e.target.value,
+    });
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.onItemAdded(this.state.label);
+  };
+
+  render() {
+    return (
+      <form className="flex" onSubmit={this.onSubmit}>
+        <input
+          type="text"
+          className="bg-slate-700 block max-w-full w-full border border-cyan-600 rounded-l outline-none py-1 pl-2 mt-2 h-10"
+          onChange={this.onLabelChange}
+          placeholder="What needs to be done"
+        />
+        <button className="bg-slate-700 px-2 border-y border-r border-cyan-600 w-52 py-1 rounded-r h-10 mt-2 hover:bg-cyan-600">
+          Add Item
+        </button>
+      </form>
+    );
+  }
+}
 
 export default ItemAddForm;

@@ -8,7 +8,7 @@ const TodoListItem = ({
   done,
   important,
 }) => {
-  let className = "text-slate-200 cursor-pointer";
+  let className = "text-slate-200 cursor-pointer hover:text-slate-300";
 
   if (done) {
     className += " line-through";
