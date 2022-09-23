@@ -3,6 +3,7 @@ import React, { Component } from "react";
 export default class TodoListItem extends Component {
   state = {
     done: false,
+    important: false,
   };
 
   onLabelClick = () => {
@@ -11,15 +12,26 @@ export default class TodoListItem extends Component {
     });
   };
 
+  onMarkImportant = () => {
+    this.setState({
+      important: true,
+    });
+  };
+
   render() {
-    const { label, important = false } = this.props;
-    const { done } = this.state;
-    let className = `${
-      important ? "text-cyan-400" : "text-slate-200"
-    } cursor-pointer`;
+    const { label } = this.props;
+    const { done, important } = this.state;
+
+    let className = "text-slate-200 cursor-pointer";
+
     if (done) {
       className += " line-through";
     }
+
+    if (important) {
+      className += " text-cyan-400 font-bold";
+    }
+
     return (
       <span className="px-3 flex justify-between content-center border border-cyan-600 my-2 rounded w-full block py-2 px-1">
         <span className={className} onClick={this.onLabelClick}>
@@ -47,6 +59,7 @@ export default class TodoListItem extends Component {
           </button>
           <button
             className="border-2 border-lime-600 rounded p-1 text-lime-600 ml-2"
+            onClick={this.onMarkImportant}
             type="button"
           >
             <svg
