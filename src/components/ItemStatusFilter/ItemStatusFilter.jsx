@@ -5,7 +5,7 @@ export default class ItemStatusFilter extends Component {
     return (
       <div className="mt-2 h-10 w-80">
         <button
-          className="w-1/3 border-y border-cyan-600 py-0.5 hover:bg-cyan-600 h-full"
+          className="w-1/3 border-y border-cyan-600 bg-cyan-600 py-0.5 hover:bg-cyan-600 h-full"
           type="button"
         >
           All
