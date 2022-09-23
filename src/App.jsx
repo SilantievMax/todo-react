@@ -10,11 +10,20 @@ export default class App extends Component {
 
   state = {
     todoData: [
-      { id: 1, label: "Drink Coffee", important: false },
-      { id: 2, label: "Make Awesome App", important: true },
-      { id: 3, label: "Have a lunch", important: false },
+      this.createTodoItem("Drink Coffee"),
+      this.createTodoItem("Make Awesome App"),
+      this.createTodoItem("Have a lunch"),
     ],
   };
+
+  createTodoItem(label) {
+    return {
+      id: this.maxId++,
+      label,
+      important: false,
+      done: false,
+    };
+  }
 
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
@@ -29,11 +38,7 @@ export default class App extends Component {
   };
 
   addItem = (text) => {
-    const newitem = {
-      id: this.maxId++,
-      label: text,
-      important: false,
-    };
+    const newitem = this.createTodoItem("Hello World");
 
     this.setState(({ todoData }) => {
       const newArr = [...todoData, newitem];
@@ -43,27 +48,48 @@ export default class App extends Component {
     });
   };
 
-  onToggleImportant = (id) => {
-    console.log("important", id);
+  toggleProperty(arr, id, propName) {
+    const inx = arr.findIndex((el) => el.id === id);
+
+    const oldItem = arr[inx];
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+
+    return [...arr.slice(0, inx), newItem, ...arr.slice(inx + 1)];
+  }
+
+  onToggleDone = (id) => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.toggleProperty(todoData, id, "done"),
+      };
+    });
   };
 
-  nToggleDone = (id) => {
-    console.log("Done", id);
+  onToggleImportant = (id) => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.toggleProperty(todoData, id, "important"),
+      };
+    });
   };
 
   render() {
+    const { todoData } = this.state;
+    const doneCount = todoData.filter((el) => el.done).length;
+    const todoCount = todoData.length - doneCount;
+
     return (
       <div className="w-1/2 m-auto mt-5 bg-slate-700 p-3 rounded font-sans text-slate-200">
-        <AppHeader />
+        <AppHeader toDo={todoCount} done={doneCount} />
         <div className="flex justify-between">
           <SearchPanel />
           <ItemStatusFilter />
         </div>
         <TodoList
-          todos={this.state.todoData}
+          todos={todoData}
           onDeleted={this.deleteItem}
           onToggleImportant={this.onToggleImportant}
-          onToggleDone={this.nToggleDone}
+          onToggleDone={this.onToggleDone}
         />
         <ItemAddForm onItemAdded={this.addItem} />
       </div>
