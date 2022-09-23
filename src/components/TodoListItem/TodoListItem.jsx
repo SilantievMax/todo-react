@@ -25,7 +25,7 @@ export default class TodoListItem extends Component {
   };
 
   render() {
-    const { label } = this.props;
+    const { label, onDeleted } = this.props;
     const { done, important } = this.state;
 
     let className = "text-slate-200 cursor-pointer";
@@ -46,6 +46,7 @@ export default class TodoListItem extends Component {
         <div>
           <button
             className="border-2 border-rose-600 rounded p-1 text-rose-600 hover:text-rose-500 hover:border-rose-500"
+            onClick={onDeleted}
             type="button"
           >
             <svg
