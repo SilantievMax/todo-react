@@ -1,7 +1,7 @@
 import React from "react";
 import TodoListItem from "../TodoListItem";
 
-const TodoList = ({ todos, onDeleted }) => {
+const TodoList = ({ todos, onDeleted, onToggleImportant, onToggleDone }) => {
   return (
     <div className="mt-2">
       <ul>
@@ -9,7 +9,12 @@ const TodoList = ({ todos, onDeleted }) => {
           const { id, ...itemProps } = item;
           return (
             <li key={item.id}>
-              <TodoListItem {...itemProps} onDeleted={() => onDeleted(id)} />
+              <TodoListItem
+                {...itemProps}
+                onDeleted={() => onDeleted(id)}
+                onToggleImportant={() => onToggleImportant(id)}
+                onToggleDone={() => onToggleDone(id)}
+              />
             </li>
           );
         })}
