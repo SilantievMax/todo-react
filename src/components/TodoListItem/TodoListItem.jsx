@@ -6,15 +6,21 @@ export default class TodoListItem extends Component {
     important: false,
   };
 
+  //1вариант
   onLabelClick = () => {
-    this.setState({
-      done: true,
+    this.setState((state) => {
+      return {
+        done: !state.done,
+      };
     });
   };
 
+  //2вариант
   onMarkImportant = () => {
-    this.setState({
-      important: true,
+    this.setState(({ important }) => {
+      return {
+        important: !important,
+      };
     });
   };
 
@@ -39,7 +45,7 @@ export default class TodoListItem extends Component {
         </span>
         <div>
           <button
-            className="border-2 border-rose-600 rounded p-1 text-rose-600"
+            className="border-2 border-rose-600 rounded p-1 text-rose-600 hover:text-rose-500 hover:border-rose-500"
             type="button"
           >
             <svg
@@ -58,7 +64,7 @@ export default class TodoListItem extends Component {
             </svg>
           </button>
           <button
-            className="border-2 border-lime-600 rounded p-1 text-lime-600 ml-2"
+            className="border-2 border-lime-600 rounded p-1 text-lime-600 ml-2 hover:text-lime-500 hover:border-lime-500"
             onClick={this.onMarkImportant}
             type="button"
           >
