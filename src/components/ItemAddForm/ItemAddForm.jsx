@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class ItemAddForm extends Component {
+export default class ItemAddForm extends Component {
   state = {
     label: "",
   };
@@ -14,6 +14,9 @@ class ItemAddForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.onItemAdded(this.state.label);
+    this.setState({
+      label: "",
+    });
   };
 
   render() {
@@ -24,6 +27,7 @@ class ItemAddForm extends Component {
           className="bg-slate-700 block max-w-full w-full border border-cyan-600 rounded-l outline-none py-1 pl-2 mt-2 h-10"
           onChange={this.onLabelChange}
           placeholder="What needs to be done"
+          value={this.state.label}
         />
         <button className="bg-slate-700 px-2 border-y border-r border-cyan-600 w-52 py-1 rounded-r h-10 mt-2 hover:bg-cyan-600">
           Add Item
@@ -32,5 +36,3 @@ class ItemAddForm extends Component {
     );
   }
 }
-
-export default ItemAddForm;
